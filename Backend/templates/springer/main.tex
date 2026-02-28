@@ -1,0 +1,70 @@
+\documentclass[12pt]{scrartcl}
+
+\usepackage{fontspec}
+\usepackage[a4paper,
+            top=2.5cm, bottom=2.5cm,
+            left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{abstract}
+
+% ── Springer-style headings ───────────────────────────────────────────────────
+\titleformat{\section}
+  {\normalfont\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\itshape}{\thesubsubsection}{1em}{}
+
+% ── Abstract style ───────────────────────────────────────────────────────────
+\renewcommand{\abstractnamefont}{\normalfont\bfseries\small}
+\renewcommand{\abstracttextfont}{\normalfont\small}
+\setlength{\absleftindent}{1cm}
+\setlength{\absrightindent}{1cm}
+
+% ── Header ───────────────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[RO,LE]{\small\thepage}
+\fancyhead[LO,RE]{\small\itshape <<TITLE>>}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\title{<<TITLE>>}
+\author{Author Name\\[0.3em]
+  \small\itshape Affiliation\\
+  \small\texttt{email@example.com}}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+<<ABSTRACT>>
+\end{abstract}
+
+\noindent\textbf{Keywords:} <<KEYWORDS>>
+
+\bigskip
+
+\section{Introduction}
+<<INTRODUCTION>>
+
+\section{Methodology}
+<<METHODOLOGY>>
+
+\section{Results}
+<<RESULTS>>
+
+\section{Conclusion}
+<<CONCLUSION>>
+
+\section*{References}
+<<REFERENCES>>
+
+\end{document}

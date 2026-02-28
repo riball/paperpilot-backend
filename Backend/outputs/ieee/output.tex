@@ -1,0 +1,426 @@
+\documentclass[10pt,twocolumn]{article}
+
+\usepackage{fontspec}
+\usepackage[letterpaper,
+            top=0.75in, bottom=1in,
+            left=0.625in, right=0.625in,
+            columnsep=0.25in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+
+% ── IEEE-style section headings ──────────────────────────────────────────────
+\titleformat{\section}
+  {\normalfont\bfseries\scshape\centering}
+  {\Roman{section}.}{0.5em}{}
+
+\titleformat{\subsection}
+  {\normalfont\itshape}
+  {\Alph{subsection}.}{0.5em}{}
+
+\titlespacing{\section}{0pt}{8pt}{4pt}
+\titlespacing{\subsection}{0pt}{6pt}{3pt}
+
+% ── Header / Footer ──────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[C]{\thepage}
+
+% ── Title block ──────────────────────────────────────────────────────────────
+\makeatletter
+\renewcommand{\maketitle}{%
+  \twocolumn[%
+    \begin{@twocolumnfalse}
+      \centering
+      {\LARGE \bfseries \@title \par}\vspace{0.5em}
+      {\normalsize \@author \par}\vspace{0.3em}
+      {\small \@date \par}\vspace{1.2em}
+    \end{@twocolumnfalse}
+  ]%
+}
+\makeatother
+
+\title{AI -Driven Multi -Objective Optimization for Sustainable Construction Cost and Carbon Reduction}
+\author{Author Name \quad \textit{Affiliation} \quad \texttt{email@example.com}}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\boldmath
+The construction industry is responsible for nearly 39\% of global energy -related carbon emissions,
+with embodied carbon in building materials contributing significantly to lifecycle environmental 
+impact. Despite the increasing emphasis on sustainable devel opment and carbon -neutral 
+construction, project planning processes continue to prioritize economic efficiency over 
+environmental performance. This research presents an AI -driven multi -objective optimization 
+framework designed to simultaneously minimize con struction cost and embodied carbon emissions 
+using structured Bill of Quantities (BOQ) datasets.  
+ 
+The proposed framework transforms unstructured BOQ documents into machine -readable datasets 
+through automated parsing, material classification, and emission factor mapping. Each material entry 
+is linked to standardized carbon emission factors derived from established lifecycle assessment (LCA) 
+databases. Embodied carbon is computed at item, category, and project levels using quantity -based 
+carbon intensity calculations. Cost modeling incorporates real -time pricing structures, enabling dual -
+objective evaluati on. 
+ 
+To address the trade -off between economic and environmental objectives, the framework employs 
+the Non -dominated Sorting Genetic Algorithm II (NSGA -II), an evolutionary multi -objective 
+optimization technique capable of generating Pareto -optimal solution set s. Decision variables include 
+material substitutions, quantity adjustments, and alternative construction techniques. The 
+optimization process yields a diverse frontier of solutions that provide stakeholders with multiple 
+trade -off scenarios rather than a s ingle deterministic output.  
+ 
+Experimental validation was conducted using real -world BOQ datasets from mid -scale residential 
+construction projects. Results indicate potential embodied carbon reductions of 18 –32\% with cost 
+variations maintained within ±5\% of baseline estimates. The syst em successfully identifies low -
+carbon material alternatives such as fly -ash blended cement, recycled steel, and optimized structural 
+quantities without compromising project feasibility.  
+ 
+The findings demonstrate that structured BOQ analytics combined with AI -based optimization can 
+transform conventional cost estimation documents into intelligent sustainability decision -support 
+systems. The proposed framework offers scalability for integrati on into Building Information 
+Modeling (BIM) environments and supports policy -driven carbon budgeting strategies in modern 
+construction management.
+\end{abstract}
+
+\textbf{Index Terms---}Artificial Intelligence, Multi -Objective Optimization, Sustainability, Carbon Emissions,
+Construction Management, NSGA -II, BOQ Analysis
+
+\section{Introduction}
+The construction industry is one of the largest contributors to global greenhouse gas (GHG)
+emissions and resource depletion. According to international environmental assessments, buildings 
+and infrastructure collectively account for a substantial share of  energy consumption and nearly 40\% 
+of global carbon emissions when both operational and embodied carbon are considered. While 
+operational emissions related to heating, cooling, and electricity use have been widely studied and 
+optimized over the past decade s, embodied carbon — emissions resulting from material extraction, 
+manufacturing, transportation, and construction processes — remains insufficiently addressed 
+during early -stage planning.  
+ 
+Embodied carbon is particularly significant in materials such as Portland cement, structural steel, 
+bricks, aluminum, and glass. Cement production alone contributes approximately 7 –8\% of global CO₂ 
+emissions due to energy -intensive clinker manufacturing an d chemical decomposition processes. 
+Similarly, steel production involves high -temperature blast furnace operations, resulting in 
+substantial fossil fuel consumption. As construction demand continues to grow, especially in 
+developing economies, the cumulati ve impact of embodied emissions presents a major challenge to 
+achieving global net -zero targets.  
+ 
+Traditionally, construction planning and cost estimation rely heavily on economic metrics. Engineers 
+and project managers prioritize cost optimization, structural safety, regulatory compliance, and 
+schedule efficiency. Environmental considerations are ofte n introduced only during later design 
+stages or through external certification frameworks such as green building standards. This sequential 
+approach limits the potential for impactful carbon reductions, as material choices and structural 
+quantities are lar gely fixed once procurement and budgeting decisions are finalized.  
+ 
+Bill of Quantities (BOQ) documents serve as foundational cost -planning instruments in construction 
+projects. A BOQ provides itemized listings of materials, labor components, specifications, quantities, 
+and associated costs. Despite containing rich quantita tive data, BOQs are typically treated as static 
+financial documents rather than dynamic analytical datasets. Their tabular structure, when digitized 
+and standardized, offers an opportunity to enable computational analysis and data -driven 
+optimization.  
+ 
+The rapid advancement of artificial intelligence (AI), machine learning (ML), and evolutionary 
+optimization algorithms provides new possibilities for addressing complex, multi -criteria decision -
+making problems in engineering. Construction planning inherent ly involves trade -offs between 
+competing objectives, including cost, environmental impact, structural performance, and resource 
+availability. Multi -objective optimization techniques allow simultaneous evaluation of conflicting 
+goals and generate Pareto -optimal solution sets that provide decision -makers with flexible trade -off 
+alternatives.  
+ 
+Among these techniques, evolutionary algorithms such as the Non -dominated Sorting Genetic 
+Algorithm II (NSGA -II) have demonstrated strong performance in solving non -linear, high -dimensional 
+optimization problems. NSGA -II efficiently balances exploration an d exploitation through population -
+based search mechanisms, non -dominated sorting, and crowding distance strategies. Its ability to 
+generate a diverse Pareto frontier makes it particularly suitable for sustainable construction 
+optimization, where no single solution can simultaneously minimi ze both cost and carbon without 
+compromise.  
+ 
+Recent research efforts have explored lifecycle assessment (LCA) integration within Building 
+Information Modeling (BIM) systems, carbon estimation tools, and machine learning -based material 
+prediction models. However, limited attention has been given to le veraging existing BOQ documents 
+as primary analytical inputs for automated sustainability optimization. Furthermore, most existing 
+studies focus either on carbon estimation or cost optimization independently, rather than integrating 
+both within a unified A I-driven framework.  
+ 
+This study addresses this research gap by proposing a scalable AI -based system that transforms raw 
+BOQ data into structured datasets, maps materials to standardized emission factor databases, 
+computes embodied carbon metrics, and applies multi -objective ev olutionary optimization to 
+balance economic and environmental objectives. The framework aims to support early -stage 
+construction planning decisions by providing actionable insights derived directly from conventional 
+cost documentation.  
+ 
+The primary contributions of this research are as follows:  
+ 
+Development of an automated BOQ data structuring pipeline for sustainability analysis.  
+ 
+Integration of emission factor mapping with cost modeling at item -level granularity.  
+ 
+Implementation of NSGA -II for simultaneous cost and carbon optimization.  
+ 
+Generation of Pareto -optimal trade -off solutions for informed stakeholder decision -making.  
+ 
+Validation using realistic residential construction datasets.  
+ 
+By embedding sustainability intelligence directly into cost -planning workflows, this approach 
+contributes to the advancement of AI -enabled sustainable engineering practices. The framework 
+supports regulatory compliance, carbon budgeting strategies, and lon g-term environmental 
+responsibility without sacrificing economic feasibility.
+
+\section{Methodology}
+The proposed framework integrates data preprocessing, carbon computation, cost modeling, and
+evolutionary multi -objective optimization into a unified pipeline. The overall architecture consists of 
+four major stages: (1) BOQ data structuring, (2) emission f actor mapping and carbon calculation, (3) 
+objective function modeling, and (4) multi -objective optimization using NSGA -II. Figure references 
+are omitted here but can be added during formatting.  
+ 
+1. BOQ Data Structuring and Preprocessing  
+ 
+Bill of Quantities (BOQ) documents are typically available in spreadsheet or PDF formats and contain 
+semi -structured tabular information such as material descriptions, quantities, units, and costs. 
+However, these documents are not immediately suitable for computational analysis. Therefore, the 
+first stage of the methodology focuses on transforming raw BOQ data into a clean, structured 
+dataset.  
+ 
+The preprocessing pipeline begins with document parsing. If the BOQ is in PDF format, text 
+extraction tools are used to convert it into structured tabular data. Spreadsheet files are directly read 
+and standardized. Each line item is converted into a consis tent data record containing the following 
+attributes:  
+ 
+Item identification number  
+ 
+Material description  
+ 
+Category (concrete, steel, masonry, finishing, etc.)  
+ 
+Unit of measurement  
+ 
+Quantity  
+ 
+Unit rate  
+ 
+Total cost  
+ 
+Material descriptions often vary in wording. For example, “M25 grade concrete,” “reinforced cement 
+concrete,” and “RCC mix” may refer to similar material categories. To address this, rule -based 
+keyword matching and basic natural language processing techniq ues are applied to normalize 
+descriptions and assign them to standardized material classes.  
+Units are also standardized. For example, quantities expressed in tons are converted to kilograms, 
+and cubic feet are converted to cubic meters where necessary. This ensures consistency during 
+carbon and cost computation.  
+The output of this stage is a clean dataset where every material entry is structured, categorized, and 
+ready for environmental and economic analysis.  
+ 
+2. Emission Factor Mapping and Carbon Computation  
+ 
+Once the BOQ dataset is structured, each material is mapped to a standardized carbon emission 
+factor obtained from lifecycle assessment databases. These emission factors represent the amount of 
+carbon dioxide equivalent emitted per unit of material during extraction, production, and 
+transportation.  
+ 
+For example:  
+Ordinary Portland Cement has a high emission factor due to energy -intensive clinker production.  
+Recycled steel has a lower emission factor compared to virgin steel.  
+Fly-ash bricks typically have lower embodied carbon than traditional clay bricks.  
+After mapping emission factors to each material, embodied carbon is computed by multiplying the 
+material quantity by its corresponding emission intensity. This calculation is performed at the item 
+level and then aggregated to category level (e.g., total ca rbon from concrete works) and finally at the 
+overall project level.  
+Simultaneously, total project cost is calculated by aggregating the product of quantity and unit rate 
+for each material.  
+This dual computation enables the system to establish baseline values for:  
+ 
+Total embodied carbon  
+ 
+Total construction cost  
+ 
+These baseline values serve as reference points for the optimization stage.  
+ 
+3. Definition of Decision Variables  
+ 
+To enable optimization, the system defines adjustable decision variables that influence cost and 
+carbon outcomes. These variables include:  
+ 
+Material substitution options  
+High -carbon materials are assigned environmentally friendly alternatives. For example:  
+ 
+Ordinary cement can be partially replaced with fly -ash blended cement.  
+ 
+Conventional reinforcement steel can be replaced with recycled steel.  
+ 
+Standard bricks can be replaced with fly -ash or compressed earth blocks.  
+ 
+Quantity adjustment factors  
+Minor structural or design optimizations can reduce excessive material usage within safety limits. The 
+system allows small percentage -based quantity adjustments within predefined engineering 
+tolerances.  
+ 
+Constraint thresholds  
+Cost variation limits are imposed to ensure economic feasibility. For instance, total project cost may 
+not exceed a specified percentage above the baseline estimate. Additionally, minimum performance 
+standards and material availability constraints are cons idered.  
+ 
+These decision variables collectively form the solution space explored during optimization.  
+ 
+4. Multi -Objective Optimization Using NSGA -II 
+ 
+The core of the framework is the Non -dominated Sorting Genetic Algorithm II (NSGA -II), an 
+evolutionary optimization algorithm designed for solving problems with multiple conflicting 
+objectives.  
+ 
+In this context, the two primary objectives are:  
+ 
+Minimizing total construction cost  
+ 
+Minimizing total embodied carbon emissions  
+ 
+Unlike single -objective optimization, which produces one optimal solution, multi -objective 
+optimization generates a set of trade -off solutions known as a Pareto frontier. Each solution on this 
+frontier represents a configuration where improving one objecti ve would worsen the other.  
+ 
+4.1 Population Initialization  
+The algorithm begins by generating an initial population of candidate solutions. Each solution 
+represents a unique combination of material substitutions and quantity adjustments.  
+For example, one solution may substitute 30\% of cement with fly ash while keeping steel unchanged. 
+Another solution may reduce concrete quantity slightly and replace steel entirely with recycled 
+variants.  
+ 
+4.2 Fitness Evaluation  
+ 
+Each candidate solution is evaluated by recalculating:  
+ 
+Total cost  
+ 
+Total embodied carbon  
+ 
+These values determine the solution’s fitness in the optimization process.  
+ 
+4.3 Non -Dominated Sorting  
+ 
+Solutions are ranked based on dominance relationships. A solution is considered superior if it 
+performs better in at least one objective without performing worse in the other.  
+ 
+The algorithm organizes solutions into different fronts:  
+ 
+The first front contains non -dominated solutions (best trade -offs).  
+ 
+Subsequent fronts contain progressively dominated solutions.  
+ 
+4.4 Diversity Preservation  
+ 
+To ensure a wide spread of solutions across the trade -off curve, NSGA -II uses a crowding distance 
+mechanism. This prevents the algorithm from clustering around a narrow region of the solution 
+space and encourages exploration of diverse design alternatives.  
+ 
+4.5 Genetic Operators  
+ 
+The algorithm evolves the population using:  
+ 
+Selection mechanisms favoring higher -ranked solutions  
+ 
+Crossover operations that combine features of two solutions  
+ 
+Mutation operations introducing random variations  
+ 
+This evolutionary process continues for multiple generations until convergence criteria are satisfied.  
+ 
+5.Experimental Configuration  
+ 
+The proposed framework was evaluated using real -world mid -scale residential construction BOQ 
+datasets containing approximately 150 to 300 line items across structural, masonry, finishing, and 
+reinforcement categories. The datasets were selected to reflect realistic material distributions, 
+including high -carbon components such as cement -based concrete and structural steel. Before 
+optimization, baseline project cost and embodied carbon were calculated to establish reference 
+values for performance comparison.  
+ 
+The evolutionary optimization process was configured with a population size of one hundred 
+candidate solutions to ensure adequate exploration of the solution space while maintaining 
+computational efficiency. The algorithm was executed for three hundred gen erations, which was 
+determined sufficient for convergence based on preliminary experimental trials. A high crossover 
+probability was used to promote effective combination of material substitution strategies between 
+candidate solutions, while a moderate mutation rate was applied to preserve diversity and avoid 
+premature convergence. Constraint limits were enforced during each generation to ensure that 
+candidate solutions remained within acceptable cost deviation thres holds and engineering feasibility 
+bounds.  
+ 
+To evaluate performance, convergence behavior was monitored across generations by observing 
+stability in Pareto -front distribution. Additional assessment metrics included percentage carbon 
+reduction relative to baseline, percentage cost deviation, and dive rsity spread of solutions along the 
+trade -off frontier. Computational runtime was also recorded to analyze scalability potential for larger 
+BOQ datasets. The experimental setup demonstrated stable convergence and consistent generation 
+of diverse trade -off configurations.  
+ 
+6.Output Generation and Decision Support  
+ 
+The final outcome of the optimization process is a Pareto frontier consisting of multiple non -
+dominated solutions representing different trade -offs between total construction cost and embodied 
+carbon emissions. Instead of producing a single optimal configu ration, the system generates a range 
+of viable alternatives that reflect varying priorities between economic and environmental objectives.  
+ 
+Each solution in the Pareto set includes a fully defined material configuration, updated quantity 
+allocations, recalculated total project cost, and total embodied carbon value. These results are 
+presented in a structured comparative format that enables sta keholders to directly evaluate the 
+impact of each decision scenario. For instance, one solution may achieve moderate carbon reduction 
+with negligible cost increase, while another may prioritize aggressive emission reduction within the 
+upper boundary of the  allowed cost deviation.  
+ 
+The decision -support capability of the framework lies in its ability to visualize trade -offs clearly and 
+transparently. Project managers can assess whether marginal cost increases justify substantial carbon 
+reductions. Policymakers can evaluate compliance with regulatory carbon targets. Engineers can 
+analyze which material substitutions contribute most significantly to environmental improvement.  
+ 
+By converting static BOQ documents into dynamic optimization outputs, the framework transforms 
+traditional cost estimation into a strategic sustainability planning tool. The generated solutions 
+empower decision -makers to balance financial constraints with long -term environmental 
+responsibility, thereby promoting data -driven sustainable construction practices.
+
+\section{Results}
+Experimental evaluation was conducted using mid -scale residential BOQ datasets containing
+between 150 and 300 line items. Baseline analysis indicated that concrete and steel components 
+accounted for more than 60 percent of total embodied carbon. The NSGA -II optimization process 
+generated a well -distributed Pareto frontier demonstrating clear trade -offs between cost and carbon 
+reduction.  
+ 
+Results show that embodied carbon reductions ranging from 18 percent to 32 percent were 
+achievable while maintaining cost deviations within five percent of the baseline estimate. A balanced 
+solution achieved approximately 24 percent carbon reduction with l ess than two percent increase in 
+total project cost, indicating strong practical feasibility. Material substitutions, particularly partial 
+cement replacement and recycled steel adoption, contributed significantly to emission reductions.  
+ 
+The optimization framework demonstrated stable convergence and computational efficiency, 
+confirming its applicability for real -world construction planning scenarios.
+
+\section{Conclusion}
+This study presented an AI -driven multi -objective optimization framework for sustainable
+construction planning using structured BOQ datasets. By integrating emission factor mapping, 
+embodied carbon computation, and evolutionary optimization through NSGA -II, the framework 
+enables simultaneous consideration of economic and environmental objectives. Experimental results 
+demonstrate that substantial carbon reductions can be achieved with minimal cost impact during 
+early -stage project planning.  
+ 
+The proposed approach transforms traditional BOQ documents from static cost estimation tools into 
+intelligent sustainability decision -support systems. The generated Pareto -optimal solutions provide 
+stakeholders with flexible trade -off options aligned with regulatory requirements and sustainability 
+targets. Future research may focus on integration with Building Information Modeling platforms, 
+real-time material pricing databases, and expanded lifecycle assessment parameters to enhance 
+scalability and industr y adoption.
+
+\section*{References}
+\small
+[1] Intergovernmental Panel on Climate Change, “Climate Change 2022: Mitigation of Climate
+Change,” Cambridge University Press, 2022.  
+ 
+[2] United Nations Environment Programme, “2023 Global Status Report for Buildings and 
+Construction,” UNEP , 2023.  
+ 
+[3] K. Deb, A. Pratap, S. Agarwal, and T. Meyarivan, “A fast and elitist multiobjective genetic 
+algorithm: NSGA -II,” IEEE Transactions on Evolutionary Computation, vol. 6, no. 2, pp. 182 –197, 2002.  
+ 
+[4] P . Cabeza, L. Rincón, V. Vilariño, G. Pérez, and A. Castell, “Life cycle assessment of building 
+materials,” Building and Environment, vol. 44, no. 12, pp. 2510 –2516, 2009.
+
+\end{document}
